@@ -3,6 +3,7 @@
 #include "complicated-context.h"
 #include "custom-return.h"
 #include "loop-nested.h"
+#include "math-util.h"
 #include "nested-inc.h"
 #include "rodata-literals.h"
 #include "switch.h"
@@ -26,6 +27,16 @@ void test_frame() {
     unreachable_return();
 
     nested_inc();
+
+    {
+        Mat4 mtx;
+        Mat4 mtx2;
+        Vec3f t = {0.0, 1.0, 0.0};
+        mtxf_identity(mtx);
+        mtxf_identity(mtx2);
+        mtxf_translate(mtx, t);
+        mtxf_mul(mtx2, mtx, mtx2);
+    }
 
     return;
 }

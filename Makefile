@@ -32,6 +32,7 @@ RM := rm
 SED := sed
 CPP := mips64-elf-cpp -P -Wno-trigraphs
 LD := mips64-elf-ld
+OBJCOPY := mips64-elf-objcopy
 
 ELF := $(BUILD_DIR)/output_$(IDO)_$(OPT)_$(MIPS_SET).elf
 MAP := $(ELF:.elf=.map)
@@ -56,7 +57,10 @@ BUILD_LD_SCRIPT := $(BUILD_DIR)/$(LD_SCRIPT)
 ALL_DIRS := $(BUILD_DIR) $(addprefix $(BUILD_DIR)/,$(C_SRC_DIR))
 DUMMY != mkdir -p $(ALL_DIRS)
 
-all: $(ELF)
+all: $(TARGET)
+
+clean:
+	$(RM) -rf $(DEP_FILES) $(BUILD_BASE)
 
 $(BUILD_DIR)/%.d: %.c
 	@$(CC) -M $(CFLAGS) $< | \
@@ -69,12 +73,10 @@ $(BUILD_LD_SCRIPT): $(LD_SCRIPT)
 	$(CPP) -MMD -MP -MT $@ -MF $@.d -DBUILD_DIR=$(BUILD_DIR) -o $@ $<
 
 $(ELF): $(BUILD_LD_SCRIPT) $(OBJ_FILES)
-	$(LD) -T $(BUILD_LD_SCRIPT) $(OBJ_FILES) -Map $(MAP) -o $@
+	$(LD) -T $(BUILD_LD_SCRIPT) -Map $(MAP) $(OBJ_FILES) -o $@
 
-#$(TARGET)
-
-clean:
-	$(RM) -rf $(DEP_FILES) $(BUILD_BASE)
+$(TARGET): $(ELF)
+	$(OBJCOPY) $< $@ -O binary
 
 include $(DEP_FILES)
 

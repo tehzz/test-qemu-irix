@@ -8,6 +8,7 @@ SECTIONS
         BUILD_DIR/src/complicated-context.o(.text);
         BUILD_DIR/src/custom-return.o(.text);
         BUILD_DIR/src/loop-nested.o(.text);
+        BUILD_DIR/src/math-util.o(.text);
         BUILD_DIR/src/nested-inc.o(.text);
         BUILD_DIR/src/rodata-literals.o(.text);
         BUILD_DIR/src/switch.o(.text);
@@ -22,6 +23,7 @@ SECTIONS
         BUILD_DIR/src/complicated-context.o(.data);
         BUILD_DIR/src/custom-return.o(.data);
         BUILD_DIR/src/loop-nested.o(.data);
+        BUILD_DIR/src/math-util.o(.data);
         BUILD_DIR/src/nested-inc.o(.data);
         BUILD_DIR/src/rodata-literals.o(.data);
         BUILD_DIR/src/switch.o(.data);
@@ -36,6 +38,7 @@ SECTIONS
         BUILD_DIR/src/complicated-context.o(.rodata);
         BUILD_DIR/src/custom-return.o(.rodata);
         BUILD_DIR/src/loop-nested.o(.rodata);
+        BUILD_DIR/src/math-util.o(.rodata);
         BUILD_DIR/src/nested-inc.o(.rodata);
         BUILD_DIR/src/rodata-literals.o(.rodata);
         BUILD_DIR/src/switch.o(.rodata);
@@ -44,16 +47,17 @@ SECTIONS
 
     .bss(NOLOAD) : SUBALIGN(0x10)
     {
-        BUILD_DIR/src/abs-sqrt.o(.bss*);
-        BUILD_DIR/src/all_tests.o(.bss*);
-        BUILD_DIR/src/andor-assign.o(.bss*);
-        BUILD_DIR/src/complicated-context.o(.bss*);
-        BUILD_DIR/src/custom-return.o(.bss*);
-        BUILD_DIR/src/loop-nested.o(.bss*);
-        BUILD_DIR/src/nested-inc.o(.bss*);
-        BUILD_DIR/src/rodata-literals.o(.bss*);
-        BUILD_DIR/src/switch.o(.bss*);
-        BUILD_DIR/src/unreachable-return.o(.bss*);
+        BUILD_DIR/src/abs-sqrt.o(.bss);
+        BUILD_DIR/src/all_tests.o(.bss);
+        BUILD_DIR/src/andor-assign.o(.bss);
+        BUILD_DIR/src/complicated-context.o(.bss);
+        BUILD_DIR/src/custom-return.o(.bss);
+        BUILD_DIR/src/loop-nested.o(.bss);
+        BUILD_DIR/src/math-util.o(.bss);
+        BUILD_DIR/src/nested-inc.o(.bss);
+        BUILD_DIR/src/rodata-literals.o(.bss);
+        BUILD_DIR/src/switch.o(.bss);
+        BUILD_DIR/src/unreachable-return.o(.bss);
     }
 
    /* Discard everything not specifically mentioned above. */

@@ -1,4 +1,4 @@
-/qemu-irix
+/qemu-irix*
 build/*
 *.o
 *.d
