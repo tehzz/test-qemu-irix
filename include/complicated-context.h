@@ -33,7 +33,7 @@ struct SomeStruct
     int array_arithmetic_2[2 - 1];
     int array_arithmetic_3[1 * 1];
     int array_arithmetic_4[1 << 1];
-    int array_arithmetic_5[1 >> 1];
+    int array_arithmetic_5[2 >> 1];
 };
 
 short complicated_context(struct SomeStruct *arg, unsigned char should, union SomeUnion union_arg, ...);
