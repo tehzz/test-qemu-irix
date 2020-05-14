@@ -43,8 +43,7 @@ def run_compiler(make, defines):
             f"IDO={v}", 
             f"OPT={o}", 
             f"MIPS_SET={iset}",
-            defines
-        ])
+        ] + defines)
 
 def generate_chksums(invocation, qemu):
     bins = []
@@ -78,7 +77,7 @@ def validate_chksums():
     return subprocess.run(["shasum", "-c", standard_chksums]).returncode
 
 def make_clean(make, defines):
-    return subprocess.run([make, "clean", defines]).returncode
+    return subprocess.run([make, "clean"] + defines).returncode
 
 def get_args():
     parser = argparse.ArgumentParser(description="Compile sample code to test qemu-irix changes")
@@ -96,11 +95,11 @@ def get_args():
     return parser.parse_args()
 
 def format_make_options(qemu, cpp):
-    output = ""
+    output = []
     if qemu is not None:
-        output += f"QEMU_IRIX=\"{qemu}\""
+        output.append(f"QEMU_IRIX=\"{qemu}\"")
     if cpp is not None:
-        output += f"CPP=\"{cpp}\""
+        output.append(f"CPP=\"{cpp}\"")
     
     return output
         

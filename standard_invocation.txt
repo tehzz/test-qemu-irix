@@ -1,0 +1,4 @@
+Linux-4.10.0-38-generic-x86_64-with-debian-stretch-sid
+./test_qemu.py -c cpp -s -q /home/mint/qemu/qemu-irix
+qemu-irix version 2.11.50 (v2.11.0-2162-g663d905-dirty)
+Copyright (c) 2003-2017 Fabrice Bellard and the QEMU Project developers
