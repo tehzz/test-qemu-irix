@@ -83,6 +83,8 @@ def get_args():
     parser = argparse.ArgumentParser(description="Compile sample code to test qemu-irix changes")
     parser.add_argument("-m", "--make", default="make",
         help="path to make executable (default \"make\")")
+    parser.add_argument("-j", default="1",
+        help="number of cores for make (default \"1\")")
     parser.add_argument("-q", "--qemu", default="qemu_irix",
         help="path to qemu-irix executable (default \"qemu-irix\")")
     parser.add_argument("-c","--cpp", default="mips64-elf-cpp",
@@ -94,15 +96,17 @@ def get_args():
     
     return parser.parse_args()
 
-def format_make_options(qemu, cpp):
+def format_make_options(qemu, cpp, j):
     output = []
     if qemu is not None:
         output.append(f"QEMU_IRIX=\"{qemu}\"")
     if cpp is not None:
         output.append(f"CPP=\"{cpp}\"")
+    if j is not None:
+        output.append(f"-j{j}")
     
     return output
-        
+
 def main():
     if platform.system() == "Windows":
         sys.stderr.write("qemu-irix is not supported on Windows\n")
@@ -110,7 +114,7 @@ def main():
     
     invocation = " ".join(sys.argv)
     args = get_args()
-    make_defines = format_make_options(args.qemu, args.cpp)
+    make_defines = format_make_options(args.qemu, args.cpp, args.j)
 
     if args.clean:
         return make_clean(args.make, make_defines)
@@ -125,7 +129,6 @@ def main():
         if ret == 0:
             print("All Checksums: OK")
         return ret
-        
 
 if __name__ == "__main__":
     main()
